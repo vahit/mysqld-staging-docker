@@ -8,7 +8,7 @@ echo "------- mysqld: started."
 
 if [[ ${EMPTY_DB} == "true" || ${EMPTY_DB} == "TRUE" || ${EMPTY_DB} == "True" ]]; then
     echo "------- creating ${SOURCE_DB} DB"
-    mysql --protocol=TCP --user=root --password=${MYSQL_ROOT_PASSWORD} --host=127.0.0.1 --port=3306 --execute="CREATE DATABASE ${SOURCE_DB};"
+    mysql --protocol=TCP --user=root --password=${MYSQL_ROOT_PASSWORD} --host=127.0.0.1 --port=3306 --execute="CREATE DATABASE ${SOURCE_DB} ${OPTIONS};"
     echo "------- ${SOURCE_DB} database created."
 else
     if [[ ${ONLY_SCHEMA} == "true" || ${ONLY_SCHEMA} == "TRUE" || ${ONLY_SCHEMA} == "True" ]]; then
@@ -21,7 +21,7 @@ else
     echo "------- exporting done."
 
     echo "------- creating ${SOURCE_DB} DB"
-    mysql --protocol=TCP --user=root --password=${MYSQL_ROOT_PASSWORD} --host=127.0.0.1 --port=3306 --execute="CREATE DATABASE ${SOURCE_DB};"
+    mysql --protocol=TCP --user=root --password=${MYSQL_ROOT_PASSWORD} --host=127.0.0.1 --port=3306 --execute="CREATE DATABASE ${SOURCE_DB} ${OPTIONS};"
     echo "------- ${SOURCE_DB} database created."
     mysql --protocol=TCP --user=root --password=${MYSQL_ROOT_PASSWORD} --host=127.0.0.1 --port=3306 --database="${SOURCE_DB}" < ${SOURCE_DB}-db.sql
     echo "------- ${SOURCE_DB} imported."
