@@ -29,5 +29,13 @@ else
     rm ./${SOURCE_DB}-db.sql
 fi
 
+DEFAULT_QUERY=$(env | grep -i "^default_query")
+if [[ ! -z ${DEFAULT_QUERY} ]]; then
+    for EACH_QUERY in ${DEFAULT_QUERY}; do
+        COMMAND_OUTPUT=$(mysql --protocol=TCP --user=root --password=${MYSQL_ROOT_PASSWORD} --host=127.0.0.1 --port=3306 --execute="${EACH_QUERY}" 2>&1)
+        echo "------- Query result"
+        echo "${COMMAND_OUTPUT}"
+    done
+
 echo "------- wait until mysqld stop/crush ..."
 wait
